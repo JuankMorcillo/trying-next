@@ -55,6 +55,10 @@ export const authOptions = {
             }
             return session
         }
+    },
+    session: {
+        strategy: "jwt",
+        maxAge: 8 * 60 * 60, // 24 horas
     }
 }
 

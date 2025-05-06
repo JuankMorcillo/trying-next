@@ -1,0 +1,184 @@
+{
+    "alerts": [
+        {
+            "id": 1,
+            "user_id": "System Update",
+            "latitude": 40.730610,
+            "longitude": -73.935242,
+            "priority": 1,
+            "location": [
+                {
+                    "type": "Point",
+                    "coordinates": [
+                        -73.935242,
+                        40.730610
+                    ],
+                    "accuracy": 5,
+                    "timestamp": "1744650573"
+                }
+            ],
+            "alertTime": "2023-10-01T12:00:00Z",
+            "otherInfo": "",
+            "status": 12,
+            "contact_id": 1,
+            "observation": "System update available",
+            "raw": "",
+            "created_at": "2023-10-01T12:00:00Z",
+            "updated_at": "2023-10-01T12:00:00Z",
+            "has_media": false,
+            "contact": {
+                "id": 1,
+                "user_id": 1,
+                "telegram_id": 123456789,
+                "firstName": "System",
+                "lastName": "Update",
+                "username": "",
+                "phone": "+1234567890",
+                "languageCode": "en",
+                "isBot": false,
+                "photoUrl": "",
+                "bio": "",
+                "lastSeenAt": "",
+                "status": 10,
+                "createdAt": "2023-10-01T12:00:00Z",
+                "updatedAt": "2023-10-01T12:00:00Z",
+                "raw": ""
+            }
+        },
+        {
+            "id": 2,
+            "user_id": "Security Alert",
+            "latitude": 40.712776,
+            "longitude": -74.006015,
+            "priority": 3,
+            "location": [
+                {
+                    "type": "Point",
+                    "coordinates": [
+                        -74.006015,
+                        40.712776
+                    ],
+                    "accuracy": 3,
+                    "timestamp": "1747328722"
+                }
+            ],
+            "alertTime": "2023-11-15T03:45:22Z",
+            "otherInfo": "Security cameras show unidentified person",
+            "status": 20,
+            "contact_id": 2,
+            "observation": "Security breach detected",
+            "raw": "",
+            "created_at": "2023-11-15T03:45:22Z",
+            "updated_at": "2023-11-15T04:15:10Z",
+            "has_media": true,
+            "contact": {
+                "id": 2,
+                "user_id": 3,
+                "telegram_id": 987654321,
+                "firstName": "Security",
+                "lastName": "Monitor",
+                "username": "secmon",
+                "phone": "+1987654321",
+                "languageCode": "en",
+                "isBot": true,
+                "photoUrl": "https://example.com/security.jpg",
+                "bio": "Security monitoring system",
+                "lastSeenAt": "2023-11-15T04:15:10Z",
+                "status": 5,
+                "createdAt": "2023-05-12T09:30:00Z",
+                "updatedAt": "2023-11-15T04:15:10Z",
+                "raw": ""
+            }
+        },
+        {
+            "id": 3,
+            "user_id": "Weather Warning",
+            "latitude": 34.052235,
+            "longitude": -118.243683,
+            "priority": 2,
+            "location": [
+                {
+                    "type": "Point",
+                    "coordinates": [
+                        -118.243683,
+                        34.052235
+                    ],
+                    "accuracy": 10,
+                    "timestamp": "1749897615"
+                }
+            ],
+            "alertTime": "2023-12-10T18:20:15Z",
+            "otherInfo": "Expected rainfall: 75-100mm",
+            "status": 15,
+            "contact_id": 3,
+            "observation": "Weather warning issued",
+            "raw": "",
+            "created_at": "2023-12-10T18:20:15Z",
+            "updated_at": "2023-12-10T18:20:15Z",
+            "has_media": false,
+            "contact": {
+                "id": 3,
+                "user_id": 4,
+                "telegram_id": 555444333,
+                "firstName": "Weather",
+                "lastName": "Service",
+                "username": "weatheralerts",
+                "phone": "+1555444333",
+                "languageCode": "en",
+                "isBot": true,
+                "photoUrl": "https://example.com/weather.png",
+                "bio": "Official weather alert service",
+                "lastSeenAt": "2023-12-10T18:15:00Z",
+                "status": 10,
+                "createdAt": "2022-01-15T10:00:00Z",
+                "updatedAt": "2023-12-10T18:15:00Z",
+                "raw": ""
+            }
+        },
+        {
+            "id": 4,
+            "user_id": "Maintenance Notice",
+            "latitude": 37.774929,
+            "longitude": -122.419416,
+            "priority": 1,
+            "location": [
+                {
+                    "type": "Point",
+                    "coordinates": [
+                        -122.419416,
+                        37.774929
+                    ],
+                    "accuracy": 8,
+                    "timestamp": "1751997000"
+                }
+            ],
+            "alertTime": "2024-01-05T20:30:00Z",
+            "otherInfo": "Planned maintenance window",
+            "status": 8,
+            "contact_id": 4,
+            "observation": "Routine database maintenance",
+            "raw": "",
+            "created_at": "2024-01-05T20:30:00Z",
+            "updated_at": "2024-01-05T20:45:12Z",
+            "has_media": false,
+            "contact": {
+                "id": 4,
+                "user_id": 5,
+                "telegram_id": 111222333,
+                "firstName": "IT",
+                "lastName": "Department",
+                "username": "itdept",
+                "phone": "+1111222333",
+                "languageCode": "en",
+                "isBot": false,
+                "photoUrl": "https://example.com/it.jpg",
+                "bio": "IT Support and Maintenance",
+                "lastSeenAt": "2024-01-05T20:45:12Z",
+                "status": 10,
+                "createdAt": "2021-06-10T14:30:00Z",
+                "updatedAt": "2024-01-05T20:45:12Z",
+                "raw": ""
+            }
+        }
+    ]
+}

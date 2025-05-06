@@ -29,8 +29,8 @@ export default function Home() {
     <div className="p-8">
       <h1 className="text-2xl font-bold">Bienvenido, {session?.user?.nombres} {session?.user?.apellidos}</h1>
       <div className="mt-4">
-        <a href="/clients" className="text-blue-500 hover:underline">
-          Ir a Clientes
+        <a href="/alerts" className="text-blue-500 hover:underline">
+          Ver alertas
         </a>
         <button
           onClick={handleLogout}
