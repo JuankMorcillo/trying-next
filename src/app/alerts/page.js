@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useData } from '@/context/DataContext'
 import { useSession } from 'next-auth/react';
-import MyTable from '@/components/ui/table';
+import MyTable from '@/components/table';
 import { useRouter } from "next/navigation";
 
 export default function Clients() {
@@ -91,25 +91,25 @@ export default function Clients() {
     return (
         <>
 
-            <div className='grid place-content-center h-full'>
+            <div className='grid place-content-center p-8'>
 
-                <div>
+                <div className='font-bold'>
                     Centro de Alertas
                 </div>
 
-                <div className='flex items-stretch'>
+                <div className='flex items-stretch gap-2'>
 
-                    <button className='flex w-50 items-center hover:bg-gray-300 bg-gray-100 text-red-500 rounded-full px-3 py-2'>
+                    <button className='flex gap-2 py-2 px-4 w-50 items-center hover:bg-gray-300 bg-gray-100 text-red-500 rounded-full px-3 py-2'>
                         <span>{iconos[0]['icon']}</span>
                         <span>Alertas Activas</span>
                     </button>
 
-                    <button className='flex w-50 items-center hover:bg-gray-300 bg-gray-100 text-green-500 rounded-full px-3 py-2'>
+                    <button className='flex gap-2 py-2 px-4 w-50 items-center hover:bg-gray-300 bg-gray-100 text-green-500 rounded-full px-3 py-2'>
                         <span>{iconos[1]['icon']}</span>
                         <span>Activa</span>
                     </button>
 
-                    <button className='flex w-50 items-center hover:bg-gray-300 bg-gray-100 text-black-500 rounded-full px-3 py-2'>
+                    <button className='flex gap-2 py-2 px-4 w-50 items-center hover:bg-gray-300 bg-gray-100 text-black-500 rounded-full px-3 py-2'>
                         <span>{iconos[2]['icon']}</span>
                         <span>Resuelto</span>
                     </button>

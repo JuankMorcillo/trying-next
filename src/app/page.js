@@ -8,17 +8,15 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const handleLogout = () => {
-    signOut({ redirect: true, callbackUrl: '/login' });
-  };
-
   useEffect(() => {
     console.log(session);
 
     if (status === "unauthenticated") {
       router.push("/login");
+    } else if (status === "authenticated") {
+      router.push("/alerts");
     }
-  }, [status, router]);
+  }, [status]);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -27,18 +25,8 @@ export default function Home() {
   // Solo se muestra si el usuario está autenticado
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold">Bienvenido, {session?.user?.nombres} {session?.user?.apellidos}</h1>
-      <div className="mt-4">
-        <a href="/alerts" className="text-blue-500 hover:underline">
-          Ver alertas
-        </a>
-        <button
-          onClick={handleLogout}
-          className="text-blue-500 hover:underline ml-4 bg-transparent border-none cursor-pointer"
-        >
-          Logout
-        </button>
-      </div>
+
+
     </div>
   );
 }
