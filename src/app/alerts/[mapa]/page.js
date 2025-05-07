@@ -60,7 +60,7 @@ export default function Mapa() {
       {
         alerta &&
 
-        <div className='grid place-content-center h-full'>
+        <div className='grid place-content-center p-8'>
           <div className=''>
             <Map
               initialViewState={{
