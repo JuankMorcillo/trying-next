@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { DataProvider } from "@/context/DataContext";
 import { SessionProvider } from "next-auth/react"
+import Header from "@/components/ui/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       >
         <SessionProvider>
           <DataProvider>
+            <Header />
             {children}
           </DataProvider>
         </SessionProvider>
