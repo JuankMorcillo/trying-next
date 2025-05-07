@@ -18,12 +18,12 @@ export async function middleware(request) {
 
     // Si está en una ruta pública y está autenticado, redirige al dashboard
     if (isPublicPath && token) {
-        return NextResponse.redirect(new URL('/', request.url));        
+        return NextResponse.redirect(new URL('/alerts', request.url));        
     }
 
-    if (path === '/clients/mapa' && userRol !== 'admin') {
+    if (path === '/alerts/[mapa]' && userRol !== 'admin') {
         // Si el usuario no es admin y está intentando acceder a la ruta /admin, redirige a la página de inicio
-        return NextResponse.redirect(new URL('/clients', request.url));
+        // return NextResponse.redirect(new URL('/alerts', request.url));
         
     }
 
