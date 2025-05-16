@@ -1,0 +1,12 @@
+{
+    "admin": [
+        "/alerts",
+        "/alerts/[mapa]",
+        "/alerts/mapa"
+    ],
+    "user": [
+        "/login",
+        "/alerts",
+        "/alerts/mapa"
+    ]
+}
