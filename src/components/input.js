@@ -1,9 +1,9 @@
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import Select from 'react-select/dist/declarations/src/Select'
-import CreatableSelect from 'react-select/dist/declarations/src/Creatable';
+import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select'
 
-const input = ({ inputs, data, styles, setInfo }) => {
+export default function Inputs({ inputs, data, styles, setInfo }) {
 
   const {
     register,
@@ -12,9 +12,15 @@ const input = ({ inputs, data, styles, setInfo }) => {
     control,
     formState: { errors },
     setError,
+    reset
   } = useForm({
     defaultValues: { ...data }
   })
+
+  const onClear = () => {
+    reset();
+    setInfo({});
+  };
 
   const onSubmit = (data) => setInfo({ ...data })
 
@@ -25,17 +31,19 @@ const input = ({ inputs, data, styles, setInfo }) => {
         inputs.length > 0 ?
           <form onSubmit={handleSubmit(onSubmit)}>
             <div
-              style={{
-                display: 'grid',
-                gridTemplateRows: `repeat(${styles.rows || 6}, auto)`,
-                gap: '16px',
-                gridAutoFlow: 'column',
-              }}
+              className={`grid grid-cols-${styles.cols} gap-2 place-content-start p-2`}
+            // style={{
+            //   display: 'grid',
+            //   gridTemplateRows: `repeat(${styles.rows || 6}, auto)`,
+            //   gap: '16px',
+            //   gridAutoFlow: 'column',
+            // }}
             >
               {
                 inputs.map((item, index) => {
                   return (
                     <div
+                      key={index}
                       style={{
                         display: item.display ? 'block'
                           :
@@ -43,7 +51,7 @@ const input = ({ inputs, data, styles, setInfo }) => {
                             :
                             'none',
                       }}>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div className='grid grid-cols-1 place-content-start p-2'>
                         <label>{item.label}</label>
                         {
                           item.list ?
@@ -66,9 +74,6 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                           backgroundColor: 'transparent',
                                           color: '#000',
                                           width: '300px',
-                                          marginRight: '20px',
-                                          marginBottom: '10px',
-                                          marginLeft: '20px',
                                         }),
                                         multiValue: (styles) => ({
                                           ...styles,
@@ -78,8 +83,6 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                           ...styles,
                                           backgroundColor: 'white',
                                           width: '300px',
-                                          marginTop: '0px',
-                                          marginLeft: '20px',
                                         }),
                                       }}
 
@@ -165,9 +168,6 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                             backgroundColor: 'transparent',
                                             color: '#000',
                                             width: '300px',
-                                            marginRight: '20px',
-                                            marginBottom: '10px',
-                                            marginLeft: '20px',
                                           }),
                                           multiValue: (styles) => ({
                                             ...styles,
@@ -177,8 +177,6 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                             ...styles,
                                             backgroundColor: 'white',
                                             width: '300px',
-                                            marginTop: '0px',
-                                            marginLeft: '20px',
                                           }),
                                         }}
 
@@ -248,9 +246,6 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                               backgroundColor: 'transparent',
                                               color: '#000',
                                               width: '300px',
-                                              marginRight: '20px',
-                                              marginBottom: '10px',
-                                              marginLeft: '20px',
                                             }),
                                             multiValue: (styles) => ({
                                               ...styles,
@@ -260,8 +255,6 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                               ...styles,
                                               backgroundColor: 'white',
                                               width: '300px',
-                                              marginTop: '0px',
-                                              marginLeft: '20px',
                                             }),
                                           }}
                                           theme={(theme) => ({
@@ -375,7 +368,7 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                     :
                                     item.file ?
                                       <input
-                                        className='inputs'
+                                        className='block min-w-0 outline-1 rounded-lg grow py-1.5 pr-3 pl-1'
                                         type={item.type}
                                         {...register(item.id, {
                                           required: item.required,
@@ -384,7 +377,7 @@ const input = ({ inputs, data, styles, setInfo }) => {
                                       :
                                       <input
                                         type={item.type}
-                                        className='inputs'
+                                        className='block min-w-0 outline outline-[rgb(179,179,179)] focus:outline-[#808080] focus:outline-2 rounded-sm grow  py-1.5 pr-3 pl-1'
                                         id={item.id}
                                         placeholder={item.placeholder}
                                         {...register(item.id, {
@@ -435,7 +428,6 @@ const input = ({ inputs, data, styles, setInfo }) => {
               <button
                 color="primary"
                 type='submit'
-                disabled={unable}
                 style={
                   {
                     border: "1px solid gray",
@@ -447,6 +439,23 @@ const input = ({ inputs, data, styles, setInfo }) => {
                 }>{
                   styles.textButton
                 }</button>
+              {/* {
+                styles.clearButton &&
+                <button
+                  color="primary"
+                  type='button'
+                  style={
+                    {
+                      border: "1px solid gray",
+                      padding: "10px 30px",
+                      borderRadius: "10px",
+                      background: "none",
+                      cursor: "pointer",
+                    }
+                  } onClick={() => {
+                    onClear()
+                  }}>Limpiar</button>
+              } */}
             </div>
 
 
@@ -459,5 +468,3 @@ const input = ({ inputs, data, styles, setInfo }) => {
     </>
   )
 }
-
-export default input
