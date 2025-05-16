@@ -29,6 +29,6 @@ export async function middleware(request) {
 export const config = {
     matcher: [
         // Aplica a todas las rutas excepto las que comienzan con:
-        '/((?!api|_next/static|_next/image|favicon.ico).*)',
+        '/((?!api|_next/static|_next/image|favicon.ico|firebase-messaging-sw.js).*)',
     ],
 };
