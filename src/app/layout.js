@@ -6,6 +6,9 @@ import { DataProvider } from "@/context/DataContext";
 import { SessionProvider } from "next-auth/react"
 import Header from "@/components/ui/header";
 import Menu_Botones from "@/components/ui/menu_botones";
+import Llamada from "@/components/ui/llamada";
+import firebaseConnection from "@/lib/utils/firebaseConnection";
+import { useEffect } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +21,14 @@ const geistMono = Geist_Mono({
 });
 
 export default function RootLayout({ children }) {
+
+  useEffect(() => {
+
+    firebaseConnection()
+
+  }, [])
+
+
   return (
     <html lang="en">
       <body
@@ -28,6 +39,7 @@ export default function RootLayout({ children }) {
             <Header />
             <Menu_Botones />
             {children}
+            <Llamada />
           </DataProvider>
         </SessionProvider>
       </body>
