@@ -1,0 +1,34 @@
+{
+    "admin": {
+        "/alerts": {
+            "edit": true,
+            "delete": true,
+            "create": true,
+            "view": true,
+            "filter": true
+        },
+        "/alerts/mapa": {
+            "edit": true,
+            "delete": true,
+            "create": true,
+            "view": true,
+            "filter": true
+        }
+    },
+    "user": {
+        "/alerts": {
+            "edit": false,
+            "delete": false,
+            "create": false,
+            "view": true,
+            "filter": false
+        },
+        "/alerts/mapa": {
+            "edit": false,
+            "delete": false,
+            "create": false,
+            "view": true,
+            "filter": false
+        }
+    }
+}
