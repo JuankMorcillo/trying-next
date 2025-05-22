@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging'
+import React, { useEffect } from 'react';
 
 export default function firebaseConnection() {
     const firebaseConfig = {
@@ -16,15 +17,31 @@ export default function firebaseConnection() {
 
     const messaging = getMessaging(app);
 
-    navigator.serviceWorker.register('./firebase-messaging-sw.js')
+
+    navigator.serviceWorker.getRegistration('./firebase-messaging-sw.js')
         .then((registration) => {
-            console.log('SW registrado');
-        })
-        .catch((err) => {
-            console.log('Error al registrar el SW', err);
+            if (registration) {
+                console.log('SW ya estaba registrado');
+            } else {
+                navigator.serviceWorker.register('./firebase-messaging-sw.js')
+                    .then((reg) => {
+                        console.log('SW registrado');
+                    })
+                    .catch((err) => {
+                        console.log('Error al registrar el SW', err);
+                    });
+            }
         });
 
-    getToken(messaging, { vapidKey: "BFrl5OEjPG9ITHSkgIDp59iu3uWMwPZuWTcAAN5stMSqiHzK7XdbEBWOEOVhqtSTnO0QTsDiH4cNKhln3f00jFo" }).then((currentToken) => {
+    Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+            console.log('Permiso de notificación concedido.');
+        } else {
+            console.log('Permiso de notificación denegado.');
+        }
+    })
+
+    getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY }).then((currentToken) => {
         if (currentToken) {
             console.log('Token:', currentToken);
         } else {
@@ -32,12 +49,13 @@ export default function firebaseConnection() {
         }
     });
 
-    onMessage(messaging, (payload) => {
-        Notification(payload.notification.title, {
+
+    onMessage(messaging, (payload) => {        
+        new Notification(payload.notification.title, {
             body: payload.notification.body,
             icon: payload.notification.icon,
         });
         console.log('Mensaje recibido. ', payload);
-    })
+    });
 
 }
