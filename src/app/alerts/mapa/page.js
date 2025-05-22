@@ -19,7 +19,7 @@ const icons = [
         icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 stroke-red-500">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
         </svg>,
-        color: 'red'
+        color: 'red',
     },
     {
         id: '2',
@@ -38,10 +38,9 @@ const icons = [
 ]
 
 const colorClassMap = {
-    red: "bg-red-500",
-    yellow: "bg-yellow-500",
-    blue: "bg-blue-500",
-    // agrega más si necesitas
+    red: "bg-red-500 text-white font-bold text-md",
+    yellow: "bg-yellow-500 text-white font-bold text-md",
+    blue: "bg-blue-500 text-white font-bold text-md",
 };
 
 export default function Mapa() {
@@ -53,9 +52,9 @@ export default function Mapa() {
     const [popupInfo, setPopupInfo] = useState(null);
     const { filter } = useRoleAccess()
 
-    const handleFetchAlerts = async () => {
-        const data = await fetchAlerts()
-        setData(data.alerts)
+    const handleFetchAlerts = async (params = {}) => {
+        const data = await fetchAlerts(params)
+        setData(data.data)
     }
 
     const inputs = [
@@ -78,9 +77,9 @@ export default function Mapa() {
             placeholder: 'Estado',
             required: false,
             options: [
-                { value: 4, label: 'Activa' },
-                { value: 10, label: 'Resuelta' },
-                { value: 12, label: 'Cerrada' }
+                { value: 10, label: 'Pendiente' },
+                { value: 12, label: 'En progreso' },
+                { value: 14, label: 'Resuelta' }
             ],
         },
         {
@@ -108,18 +107,16 @@ export default function Mapa() {
             data && data.map((alert, index) => (
                 <Marker
                     key={`marker-${index}`}
-                    longitude={alert.longitude}
-                    latitude={alert.latitude}
+                    longitude={alert?.longitude}
+                    latitude={alert?.latitude}
                     anchor="top"
                     onClick={e => {
                         e.originalEvent.stopPropagation();
-                        console.log(icons.find(icon => icon.id == alert.priority).color);
-
-                        setPopupInfo({ ...alert, color: icons.find(icon => icon.id == alert.priority).color });
+                        setPopupInfo({ ...alert, color: icons.find(icon => icon.id == alert?.priority)?.color });
                     }}
                 >
                     {
-                        icons.find(icon => icon.id == alert.priority)?.icon
+                        icons.find(icon => icon.id == alert?.priority)?.icon
                     }
                 </Marker>
             )),
@@ -133,6 +130,11 @@ export default function Mapa() {
         }
     }, [status]);
 
+    useEffect(() => {
+        handleFetchAlerts(info)
+    }, [info])
+
+
     return (
         <div className='grid place-content-center p-8'>
             <div className='font-bold'>
@@ -142,17 +144,16 @@ export default function Mapa() {
             {
                 data &&
                 <div className='flex flex-row gap-6 place-content-center p-8'>
-                    <div className=''>
+                    <div className='shadow-md rounded-lg border-1 border-gray-300'>
                         <Map
                             initialViewState={{
-                                longitude: data[0].longitude,
-                                latitude: data[0].latitude,
+                                longitude: data[0]?.longitude,
+                                latitude: data[0]?.latitude,
                                 zoom: 14
                             }}
                             style={{ width: 800, height: 600 }}
-                            mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+                            mapStyle={'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json'}
                         >
-
 
                             {pins}
 
@@ -165,21 +166,19 @@ export default function Mapa() {
                                 anchor="bottom"
                             >
                                 <div className={`flex flex-col ${colorClassMap[popupInfo.color] || "bg-gray-200"} rounded-2xl shadow-lg p-2 border border-gray-300`}>
-                                    <span>{popupInfo.observation}</span>
+                                    <span>{popupInfo.telegram_contact.full_name}</span>
                                 </div>
 
                             </Popup>}
 
                         </Map>
                     </div>
-                    <div>
+                    <div className='rounded-lg shadow-lg p-4 bg-white w-1/3'>
 
                         {
                             filter &&
                             <Inputs setInfo={setInfo} styles={style} inputs={inputs} />
                         }
-
-
 
                     </div>
                 </div>

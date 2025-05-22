@@ -154,7 +154,7 @@
             ],
             "alertTime": "2024-01-05T20:30:00Z",
             "otherInfo": "Planned maintenance window",
-            "status": 8,
+            "status": 14,
             "contact_id": 4,
             "observation": "Routine database maintenance",
             "raw": "",
