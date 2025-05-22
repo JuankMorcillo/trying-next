@@ -54,7 +54,7 @@ export default function Mapa() {
 
     const handleFetchAlerts = async (params = {}) => {
         const data = await fetchAlerts(params)
-        setData(data.data)
+        setData(data?.data)
     }
 
     const inputs = [
