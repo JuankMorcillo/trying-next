@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Login() {
-    const [user, setUsername] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
@@ -16,7 +16,7 @@ export default function Login() {
 
         try {
             const result = await signIn('credentials', {
-                user,
+                username,
                 password,
                 redirect: false
             });
@@ -53,7 +53,7 @@ export default function Login() {
                                 id="username"
                                 name="username"
                                 type="text"
-                                value={user}
+                                value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"

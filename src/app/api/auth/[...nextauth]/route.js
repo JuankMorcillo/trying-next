@@ -6,13 +6,13 @@ export const authOptions = {
     providers: [
         CredentialsProvider({
             name: 'credentials',
-            credentials: {
-                username: { label: "Username", type: "text" },
-                password: { label: "Password", type: "password" }
-            },
+            // credentials: {
+            //     username: { label: "Username", type: "text" },
+            //     password: { label: "Password", type: "password" }
+            // },
             async authorize(credentials) {
                 try {
-                    const res = await fetch(API_BASE_URL + '/login', {
+                    const res = await fetch(API_BASE_URL + '/auth/login', {
                         method: 'POST',
                         body: JSON.stringify(credentials),
                         headers: { "Content-Type": "application/json" }
@@ -34,23 +34,24 @@ export const authOptions = {
         signIn: '/',
     },
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user }) {                    
             if (user) {
-                token.id = user.token
-                token.nombres = user.nombres
-                token.apellidos = user.apellidos
-                token.email = user.correo
-                token.rol = 'usuario'
+                token.id = user.access_token
+                token.firstname = user.firstname
+                token.lastname = user.lastname
+                token.rol = 'admin'
+                token.photo = user.photo_url
                 // Puedes agregar más datos al token si es necesario
             }
             return token
         },
         async session({ session, token }) {
+            // console.log(token);
             if (token) {
                 session.user.id = token.id
-                session.user.nombres = token.nombres
-                session.user.apellidos = token.apellidos
-                session.user.email = token.email
+                session.user.firstname = token.firstname
+                session.user.lastname = token.lastname
+                session.photo = token.photo_url
                 // Sincroniza datos adicionales con la sesión
             }
             return session
