@@ -439,7 +439,7 @@ export default function Inputs({ inputs, data, styles, setInfo }) {
                 }>{
                   styles.textButton
                 }</button>
-              {/* {
+              {
                 styles.clearButton &&
                 <button
                   color="primary"
@@ -455,7 +455,7 @@ export default function Inputs({ inputs, data, styles, setInfo }) {
                   } onClick={() => {
                     onClear()
                   }}>Limpiar</button>
-              } */}
+              }
             </div>
 
 

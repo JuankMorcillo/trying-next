@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import React from 'react'
 
 export default function Menu_Botones() {
@@ -7,6 +7,9 @@ export default function Menu_Botones() {
     const { data: session, status } = useSession();
 
     const router = useRouter();
+
+    const page = usePathname();
+
 
     const opciones = [
         {
@@ -37,9 +40,9 @@ export default function Menu_Botones() {
                             return (
                                 <button
                                     key={index}
-                                    className="flex w-50 gap-2 bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition duration-300 ease-in-out"
+                                    className={`flex w-50 gap-2 ${page == opcion.url ? 'bg-white-500 border-1 border-blue-500 text-blue-500' : 'bg-blue-300 text-blue-700'} font-bold py-2 px-4 rounded-full hover:bg-blue-200 transition duration-300 ease-in-out`}
                                     onClick={() => {
-                                        router.push(opcion.url)                                        
+                                        router.push(opcion.url)
                                     }}
                                 >
                                     {opcion.icon} {opcion.name}

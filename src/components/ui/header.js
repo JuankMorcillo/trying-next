@@ -25,8 +25,8 @@ function getInitials(nombres, apellidos) {
 export default function Header() {
 
     const { data: session, status } = useSession();
-    const nombres = session?.user?.nombres || '';
-    const apellidos = session?.user?.apellidos || '';
+    const nombres = session?.user?.firstname || '';
+    const apellidos = session?.user?.lastname|| '';
     const initials = getInitials(nombres, apellidos);
     const bgColor = stringToColor(nombres + apellidos);
     const [open, setOpen] = useState(false)
@@ -39,7 +39,7 @@ export default function Header() {
         </svg>
     }
 
-    useEffect(() => {
+    useEffect(() => {                    
         function handleClickOutside(event) {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
                 setOpen(false);
@@ -53,6 +53,7 @@ export default function Header() {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
+
     }, [open]);
 
     const handleLogout = () => {
@@ -65,7 +66,7 @@ export default function Header() {
             {
                 session &&
                 <>
-                    <header>
+                    <header style={{ backgroundColor: 'white' }}>
                         <nav className="bg-white-800 p-4 shadow-md">
                             <div className="grid grid-cols-2 gap-4 place-content-between">
                                 <div className="flex items-center">
@@ -74,7 +75,7 @@ export default function Header() {
 
                                 <div className="flex text-black-500 gap-3 place-content-end items-center">
                                     <div>
-                                        Bienvenido, {session?.user?.nombres} {session?.user?.apellidos}
+                                        Bienvenido, {session?.user?.firstname} {session?.user?.lastname}
                                     </div>
                                     <button
                                         className="w-10 h-10 cursor-pointer rounded-full text-white font-bold text-lg shadow transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"

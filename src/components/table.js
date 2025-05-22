@@ -5,6 +5,7 @@ import {
 } from 'material-react-table';
 import { darken, lighten, createTheme, ThemeProvider } from '@mui/material';
 import { useData } from '@/context/DataContext'
+import { useSession } from 'next-auth/react';
 
 const shades = {
   primary: {
@@ -41,6 +42,7 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
   const { recarga, setRecarga } = useData()
 
   const [data, setData] = useState([])
+  const { data: status } = useSession();
   const [columnFilter, setColumnFilter] = useState([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [sorting, setSorting] = useState([]);
@@ -79,6 +81,13 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
     onGlobalFilterChange: setGlobalFilter,
     onColumnFiltersChange: setColumnFilter,
     onSortingChange: setSorting,
+    // enableRowNumbers: true,
+    // rowNumberDisplayMode: 'static',
+    defaultColumn: {
+      minSize: 40,
+      maxSize: 200,
+      size: 40,
+    },
     state: opciones.bd ? {
       columnFilter,
       globalFilter,
@@ -178,7 +187,7 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
       }
     },
     mrtTheme: (theme) => ({
-      baseBackgroundColor: baseBackgroundColor,
+      baseBackgroundColor: 'rgb(255, 255, 255)',
     }),
     localization: {
       actions: 'Acciones',
@@ -281,7 +290,7 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
     displayColumnDefOptions: {
       'mrt-row-actions': {
         header: 'Acciones', //change header text
-        size: 150, //make actions column wider
+        size: 90, //make actions column wider
       },
     },
     renderRowActions: ({ row, table }) => (
@@ -292,7 +301,7 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
         {
           acciones.map((accion, index) => {
             return <div key={index}>
-              <button                              
+              <button
                 color='light'
                 tag='a'
                 key={accion.name}
@@ -379,7 +388,6 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
       })
 
       try {
-
         getInfo(params).then((data) => {
           setData(data.data)
           setRowCount(data.total)
@@ -390,7 +398,7 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
         return;
       }
 
-      setIsLoading(false);
+      setIsLoading(status === 'loading' ? true : false);
       setIsRefetching(false);
     };
 
@@ -404,6 +412,7 @@ export default function MyTable({ acciones, columns, crud, getInfo = async () =>
     pagination.pageSize,
     sorting,
     recarga,
+    status
   ])
 
   return (
