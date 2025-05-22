@@ -1,3 +1,4 @@
+import axios from 'axios';
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const defaultHeaders = {
@@ -6,18 +7,17 @@ export const defaultHeaders = {
 
 export async function fetchAPI(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
-  
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options.headers,
-    },
-  });
-  
-  if (!response.ok) {
-    throw new Error(`API error: ${response.status}`);
-  }
-  
-  return response.json();
+
+  return await axios(url, options)
+    .then((response) => {
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error('Error fetching data');
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
 }

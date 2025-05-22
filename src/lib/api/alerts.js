@@ -20,13 +20,33 @@ export async function createClient(data) {
     });
 }
 
-export async function getAlerts(token) {
-    const alerts = await alertsData;
-    return alerts;
+export async function getAlerts(token, params) {
+
+    return fetchAPI('/alerts/', {
+        method: 'GET',
+        headers: {
+            Authorization: 'bearer ' + token,
+        },
+        params: {
+            ...params
+        }
+    });
 }
 
 export async function getAlertById(token, id) {
-    const alerts = await alertsData;
-    const alert = alerts.alerts.find((alert) => alert.id === Number(id));
-    return alert;
+    return fetchAPI('/alerts/' + id, {
+        method: 'GET',
+        headers: {
+            Authorization: 'bearer ' + token
+        },
+    });
+}
+
+export async function getAlertCount(token) {
+    return fetchAPI('/alerts/alertCount', {
+        method: 'GET',
+        headers: {
+            Authorization: 'bearer ' + token
+        },
+    });
 }

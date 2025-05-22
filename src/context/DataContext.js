@@ -27,14 +27,21 @@ export const DataProvider = ({ children }) => {
         }
     }, [session]);
 
-    const fetchAlerts = useCallback(async () => {
+    const fetchAlerts = useCallback(async (params) => {
+
         try {
             setLoading(true);
             setError(null);
 
-            const data = await alertsAPI.getAlerts(session?.user?.id);
+            if (session.user.id) {                
+                const data = await alertsAPI.getAlerts(session?.user?.id, params);
 
-            return data
+                return data
+            } else {
+                return
+            }
+
+
         } catch (err) {
             setError(err.message);
         } finally {
@@ -44,18 +51,35 @@ export const DataProvider = ({ children }) => {
 
     const fetchAlertById = useCallback(async (id) => {
         try {
-            const data = await alertsAPI.getAlertById(session?.user?.id, id);
-            return data
+
+            if (session.user.id) {
+                const data = await alertsAPI.getAlertById(session?.user?.id, id);
+                return data
+            } else {
+                return
+            }
+
+
         } catch (error) {
             setError(error.message);
         }
 
     }, [session]);
 
+    const fetchAlertCount = useCallback(async () => {
+        try {
+            const data = await alertsAPI.getAlertCount(session?.user?.id);
+            return data
+        } catch (error) {
+            setError(error.message);
+        }
+    }, [session]);
+
     const value = {
         fetchClients,
         fetchAlerts,
         fetchAlertById,
+        fetchAlertCount,
         recarga, setRecarga
     }
 
